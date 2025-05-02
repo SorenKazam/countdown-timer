@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contagem de Dias</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+      * {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+        transition: 0.5s;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+
+        /* The image used */
+        background-image: url("#");
+
+        /* Set a specific height */
+        min-height: 500px;
+
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .progressBar {
+        background-color: #f0f0f0;
+        width: 550px;
+        min-width: 160px;
+        border: 1px solid rgba(0, 0, 0, 0.301);
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .bar {
+        background-color: #4caf50;
+        text-align: center;
+        border-radius: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 10px;
+        min-width: 60px;
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      .statusIcon {
+        animation: balance 3s;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes balance {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        50% {
+          transform: rotate(90deg);
+        }
+
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
+      .app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 600px;
+        min-width: 160px;
+        border: 0px;
+        padding: 20px;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+        gap: 20px;
+        border-radius: 20px;
+
+        /* EFEITO BLURRY */
+        background: rgba(
+          255,
+          255,
+          255,
+          0.5
+        ); /* Fundo semi-transparente para contraste */
+
+        backdrop-filter: blur(
+          10px
+        ); /* Aplica o desfoque na área atrás da div */
+        -webkit-backdrop-filter: blur(
+          10px
+        ); /* Para compatibilidade com WebKit (ex: Safari) */
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: bolder;
+      }
+
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      p {
+        font-weight: lighter;
+      }
+
+      @media (max-width: 700px) {
+        body {
+          background-color: lightblue;
+        }
+
+        .app {
+          width: 100%;
+          height: 100vh;
+          padding: 10px;
+          box-shadow: 0;
+          gap: 10px;
+          border: 0px;
+          border-radius: 0px;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .progressBar {
+          width: 90vw;
+          border-radius: 20px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <h1>Contador de Dias</h1>
+      <h2 id="daysCount"></h2>
+      <h3 id="daysRemaining"></h3>
+      <p id="detailedCounter"></p>
+      <p id="lastCheck"></p>
+      <div class="progressBar">
+        <div class="bar" id="progressBar">
+          <span id="percentage">0%</span>
+          <span id="status" class="statusIcon"></span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var todaySpecialDay = false;
+
+      function calculateDays() {
+        console.log("Calculate Days Function Called");
+
+        const startDate = new Date("2024-10-08");
+        const endDate = new Date("2025-12-01");
+        const today = new Date();
+        const todayDay = today.getDate();
+        /* var todayDay = 8; */ // Hardcoded for testing purposes
+
+        localStorage.setItem(
+          "startDate",
+          startDate.toLocaleDateString("pt-PT")
+        );
+        localStorage.setItem("endDate", endDate.toLocaleDateString("pt-PT"));
+        localStorage.setItem("todayDate", today.toLocaleDateString("pt-PT"));
+
+        console.log(`First date: ${startDate}`);
+        console.log(`End date: ${endDate}`);
+        console.log(`Today's date: ${today}`);
+
+        const totalDays = Math.ceil(
+          (endDate - startDate) / (1000 * 60 * 60 * 24)
+        );
+        const daysPassed = Math.floor(
+          (today - startDate) / (1000 * 60 * 60 * 24)
+        );
+        const daysRemaining = Math.ceil(
+          (endDate - today) / (1000 * 60 * 60 * 24)
+        );
+
+        document.getElementById(
+          "daysCount"
+        ).innerText = `Já se passaram ${daysPassed} dias desde 08/10/2024.`;
+        document.getElementById(
+          "daysRemaining"
+        ).innerText = `Faltam ${daysRemaining} dias até 01/12/2025.`;
+
+        const progressPercentage = (daysPassed / totalDays) * 100;
+        document.getElementById("percentage").innerText = `${Math.floor(
+          progressPercentage
+        )}%`;
+        document.getElementById("progressBar").style.width =
+          progressPercentage + "%";
+
+        if (progressPercentage <= 1) {
+          document.getElementById("status").innerText = "👨🏻";
+        } else if (progressPercentage > 1 && progressPercentage < 100) {
+          document.getElementById("status").innerText = "✈️";
+        } else if (progressPercentage == 100) {
+          document.getElementById("status").innerText = "🧑🏻‍❤️‍💋‍👩🏻";
+        }
+
+        document.title = `Faltam ${daysRemaining.toString()} dias`;
+
+        if (todayDay === 8) {
+          console.log("Today is a special day!");
+          document.title = `❤️ Faltam ${daysRemaining} dias`;
+          todaySpecialDay = true;
+          updateSpecialDay(todayDay);
+        } else {
+          todaySpecialDay = false;
+        }
+      }
+
+      function memoryReset() {
+        console.log("Page refreshed, resetting Memory...");
+        localStorage.clear();
+        calculateDays();
+      }
+
+      function getNowTime() {
+        let now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes().toString().padStart(2, "0");
+        return `${hours}:${minutes}`;
+      }
+
+      function updateDetailedCountdown() {
+        const now = new Date();
+        const endDate = new Date("2025-12-01");
+        const diff = endDate - now;
+
+        const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+        const weeks = Math.floor(
+          (diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24 * 7)
+        );
+        const days = Math.floor(
+          (diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24)
+        );
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById(
+          "detailedCounter"
+        ).innerText = `Faltam ${months} meses, ${weeks} semanas, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos.`;
+      }
+
+      function updateBackground() {
+        var body = document.body;
+        var hours = new Date().getHours();
+        body.style.backgroundImage =
+          hours >= 6 && hours < 18
+            ? "url(./assets/day.jpg)"
+            : "url(./assets/night.jpeg)";
+      }
+
+      function updateSpecialDay(day) {
+        console.log("Update Special Day called!");
+        if (day === 8) {
+          document.getElementById("status").innerText = "❤️";
+          document.body.style.backgroundImage = "url(./assets/special.jpg)";
+        }
+      }
+
+      setInterval(() => {
+        console.log("Checking...");
+        localStorage.setItem("lastCheck", getNowTime());
+
+        const now = new Date().getDate();
+        if (localStorage.getItem("lastUpdate") !== now.toString()) {
+          console.log("Date changed, updating...");
+          localStorage.setItem("lastUpdate", now.toString());
+          calculateDays();
+        } else if (!todaySpecialDay) {
+          console.log("Day not changed, and today is not special day");
+          updateBackground();
+        }
+      }, 60000);
+
+      setInterval(updateDetailedCountdown, 1000);
+
+      memoryReset();
+    </script>
+  </body>
+</html>
