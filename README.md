@@ -1,6 +1,6 @@
 # 💖 Relationship Day Counter
 
-A simple yet lovely web app I built to track my relationship journey!  
+A simple yet lovely website I built to track my relationship journey!  
 It counts how many days have passed 🗓️, how many are left ⏳, and shows a visual progress bar 📊 that updates as we move closer to our goal 💍.
 
 ![imagem](https://github.com/user-attachments/assets/bca258f1-4a3e-44af-82f2-f12b040c56ba)
@@ -27,7 +27,6 @@ It’s simple, sweet, and always changing—just like love. 💗
 ## 🚀 How to Use
 
 1. Clone this repo 📦  
-   `git clone https://github.com/yourusername/relationship-day-counter.git`
 2. Open the `index.html` in your browser 🌐
 3. Customize the start and goal dates in the script 🛠️
 4. Enjoy your personal love tracker 💕
