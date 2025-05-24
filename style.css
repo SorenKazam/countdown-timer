@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  transition: 0.5s;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+
+  /* The image used */
+  background-image: url("./assets/day.jpg");
+
+  /* Set a specific height */
+  min-height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.progressBar {
+  background-color: #f0f0f0;
+  width: 550px;
+  min-width: 160px;
+  border: 1px solid rgba(0, 0, 0, 0.301);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bar {
+  background-color: #4caf50;
+  text-align: center;
+  border-radius: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  min-width: 60px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.statusIcon {
+  animation: balance 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes balance {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(90deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  min-width: 160px;
+  border: 0px;
+  padding: 20px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+  gap: 20px;
+  border-radius: 20px;
+
+  /* EFEITO BLURRY */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.5
+  ); /* Fundo semi-transparente para contraste */
+
+  backdrop-filter: blur(10px); /* Aplica o desfoque na área atrás da div */
+  -webkit-backdrop-filter: blur(
+    10px
+  ); /* Para compatibilidade com WebKit (ex: Safari) */
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+h2,
+h3 {
+  font-weight: normal;
+}
+
+p {
+  font-weight: lighter;
+}
+
+@media (max-width: 700px) {
+  body {
+    background-color: lightblue;
+  }
+
+  .app {
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+    box-shadow: 0;
+    gap: 10px;
+    border: 0px;
+    border-radius: 0px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .progressBar {
+    width: 90vw;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
