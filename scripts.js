@@ -1,21 +1,14 @@
 var todaySpecialDay = false;
 
 function calculateDays() {
-  console.log("Calculate Days Function Called");
-
   const startDate = new Date("2024-10-08");
-  const endDate = new Date("2025-12-01");
+  const endDate = new Date("2025-12-03");
   const today = new Date();
   const todayDay = today.getDate();
-  /* var todayDay = 8; */ // Hardcoded for testing purposes
 
   localStorage.setItem("startDate", startDate.toLocaleDateString("pt-PT"));
   localStorage.setItem("endDate", endDate.toLocaleDateString("pt-PT"));
   localStorage.setItem("todayDate", today.toLocaleDateString("pt-PT"));
-
-  console.log(`First date: ${startDate}`);
-  console.log(`End date: ${endDate}`);
-  console.log(`Today's date: ${today}`);
 
   const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
   const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
