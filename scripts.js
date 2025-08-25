@@ -16,10 +16,14 @@ function calculateDays() {
 
   document.getElementById(
     "daysCount"
-  ).innerText = `Já se passaram ${daysPassed} dias desde ${startDate}.`;
+  ).innerText = `Já se passaram ${daysPassed} dias desde ${startDate.toLocaleDateString(
+    "pt-PT"
+  )}.`;
   document.getElementById(
     "daysRemaining"
-  ).innerText = `Faltam ${daysRemaining} dias até ${endDate}.`;
+  ).innerText = `Faltam ${daysRemaining} dias até ${endDate.toLocaleDateString(
+    "pt-PT"
+  )}.`;
 
   const progressPercentage = (daysPassed / totalDays) * 100;
   document.getElementById("percentage").innerText = `${Math.floor(
